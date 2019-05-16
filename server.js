@@ -1,24 +1,22 @@
 const express = require('express')
 const logger = require('morgan')
 const app = express()
-const routes = require('./routes/index.js')
+
+//imports routes
+const routesIndex = require('./routes/index.js')
+const routesMain = require('./routes/main.js')
+
 
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(express.static(`${__dirname}/client/build`))
 
-// app.use('/', routes)
+//model routes
+app.use('/', routesIndex)
+app.use('/main', routesMain)
 
-// app.get('/*', (req, res) => {
-//     res.sendFile(`${__dirname}/client/build/index.html`)
-// })
-app.get('/', (req, res) => {
-    res.send("Hello World")
-  })
-
+//local host of heroku listners
 const PORT = process.env.PORT || 3001
-
 app.listen(PORT, () => {
   console.log('App is up and running on port ' + PORT)
 })
