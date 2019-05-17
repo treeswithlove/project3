@@ -8,14 +8,14 @@ const choicesController = {
             .then(dilema => {
                 Choices.find({ dilemaId: req.params.choicesId })
                     .then(choices => {
-                        res.render({ dilema: dilema, choices: choices });
+                        res.send({ dilema: dilema, choices: choices });
                     });
             });
     },
     new: function (req, res) {
         dilema.findById(req.params.dilemaId)
             .then(dilema => {
-                res.render({ dilema: dilema });
+                res.send({ dilema: dilema });
             })
     },
     create: function (req, res) {
@@ -32,7 +32,7 @@ const choicesController = {
             .then(dilema => {
                 choices.findById(req.params.choicesId)
                     .then(choices => {
-                        res.render({ dilema: dilema, choices: choices });
+                        res.send({ dilema: dilema, choices: choices });
                     });
             });
     },
@@ -41,7 +41,7 @@ const choicesController = {
             .then(dilema => {
                 choices.findById(req.params.choicesId)
                     .then(choices => {
-                        res.render({ dilema: dilema, choices: choices });
+                        res.send({ dilema: dilema, choices: choices });
                     });
             });
     },
