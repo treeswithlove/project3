@@ -1,61 +1,61 @@
-const Dilema = require("../models/dilemaModel.js");
+const Dilemma = require("../models/dilemmaModel.js");
 const Choices = require("../models/choicesModel.js");
 
 
 const choicesController = {
     index: function (req, res) {
-        Dilema.findById(req.params.dilemaId)
-            .then(dilema => {
-                Choices.find({ dilemaId: req.params.choicesId })
+        Dilemma.findById(req.params.dilemmaId)
+            .then(dilemma => {
+                Choices.find({ dilemmaId: req.params.choicesId })
                     .then(choices => {
-                        res.send({ dilema: dilema, choices: choices });
+                        res.send({ dilemma: dilemma, choices: choices });
                     });
             });
     },
     new: function (req, res) {
-        dilema.findById(req.params.dilemaId)
-            .then(dilema => {
-                res.send({ dilema: dilema });
+        Dilemma.findById(req.params.dilemmaId)
+            .then(dilemma => {
+                res.send({ dilemma: dilemma });
             })
     },
     create: function (req, res) {
         choices.create({
 
-            dilemaId: req.params.dilemaId
+            dilemmaId: req.params.dilemmaId
         })
             .then(() => {
                 res.redirect("choices");
             });
     },
     show: function (req, res) {
-        dilema.findById(req.params.dilemaId)
-            .then(dilema => {
+        Dilemma.findById(req.params.dilemmaId)
+            .then(dilemma => {
                 choices.findById(req.params.choicesId)
                     .then(choices => {
-                        res.send({ dilema: dilema, choices: choices });
+                        res.send({ dilemma: dilemma, choices: choices });
                     });
             });
     },
     edit: function (req, res) {
-        dilema.findById(req.params.dilemaId)
-            .then(dilema => {
+        Dilemma.findById(req.params.dilemmaId)
+            .then(dilemma => {
                 choices.findById(req.params.choicesId)
                     .then(choices => {
-                        res.send({ dilema: dilema, choices: choices });
+                        res.send({ dilemma: dilemma, choices: choices });
                     });
             });
     },
     update: function (req, res) {
         choices.findByIdAndUpdate(req.params.choicesId, req.body, { new: true })
             .then(() => {
-                res.redirect("/dilema/" + req.params.dilemaId + "/choices/" + req.params.choicesId);
+                res.redirect("/dilemma/" + req.params.dilemmaId + "/choices/" + req.params.choicesId);
             });
         
     },
     delete: function (req, res) {
         choices.findByIdAndRemove(req.params.choicesId)
             .then(() => {
-                res.redirect("/dilema/" + req.params.dilemaId + "/choices/");
+                res.redirect("/dilemma/" + req.params.dilemmaId + "/choices/");
             });
     }
 }

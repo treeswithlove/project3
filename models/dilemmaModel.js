@@ -1,11 +1,11 @@
 const mongoose = require('../db/connection.js')
 const Schema = mongoose.Schema
 
-const dilemaSchema = new Schema({
+const DilemmaSchema = new Schema({
     name: String,
     notesThoughts: String
 })
 
-const dilemaModel = mongoose.model("dilema", dilemaSchema)
+const DilemmaModel = mongoose.model("dilemma", DilemmaSchema)
 
-module.exports = dilemaModel
+module.exports = DilemmaModel

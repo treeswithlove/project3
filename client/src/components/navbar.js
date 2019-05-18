@@ -1,0 +1,1 @@
+// to='/about' redirects to exact link on app.js page

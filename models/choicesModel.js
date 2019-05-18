@@ -5,7 +5,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const choicesSchema = new Schema({
     name: String,
-    dilemaId: ObjectId
+    dilemmaId: ObjectId
 })
 
 const choicesModel = mongoose.model("choices", choicesSchema)
