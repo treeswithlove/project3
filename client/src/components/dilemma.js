@@ -14,11 +14,38 @@ class Dilemma extends Component {
         redirectToHome: false,
         isEditFormDisplayed: false
     }
-
+    componentDidMount = () => {
+        axios.get(`/dilemma/${this.props.id}`).then(res => {
+            this.setState({dilemma: res.data.dilemma})
+        })
+    }
+    toggleEditForm = () => {
+        this.setState((state, props) => {
+            return {isEditFormDisplayed: !state.isEditFormDisplayed}
+        })
+    }
+    handleChange = (e) => {
+        const cloneDilemma = {...this.state.dilemma}
+        cloneDilemma[e.target.name] = e.target.value
+        console.log(e.target.name)
+        this.setState({dilemma: cloneDilemma})
+    }
     deleteDilemma = (e) => {
         e.preventDefault();
         axios.delete(`/dilemma/${this.props.id}`)
         .then(() => this.props.getDilemmas())
+    }
+    updateDilemma = (e) => {
+        e.preventDefault()
+        console.log(this.state.dilemma)
+        axios.put(`/dilemma/${this.props.id}`, {
+      //   this.state.dilemma 
+        name: this.state.dilemma.name,
+        notesThoughts: this.state.dilemma.notesThoughts
+        })
+          .then(() => {
+              this.setState({isEditFormDisplayed: false})
+          })
     }
  
 render(){
@@ -27,12 +54,41 @@ const url = `/dilemma/${this.props.id}`
        <div className="eachDilemma">
          <li>
        <h3>{this.props.name} </h3> 
+       <h4>{this.props.notesThoughts} </h4> 
    
         <form>
         <Link to={url}>view</Link>
             
         </form>
         <input onClick={this.deleteDilemma} type='submit' value='delete'/>
+        <button onClick={this.toggleEditForm}>Edit</button>
+        {
+            this.state.isEditFormDisplayed
+                ? <form onSubmit={this.updateDilemma}>
+                    <div>
+                        <label htmlFor="name">Name</label>
+                        <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            onChange={this.handleChange}
+                            placeholder={this.state.dilemma.name}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="notesThoughts">notesThoughts</label>
+                        <textarea
+                            id="notesThoughts"
+                            name="notesThoughts"
+                            onChange={this.handleChange}
+                            placeholder={this.state.dilemma.notesThoughts}
+                        />
+                    </div>
+                    <input type="submit" value="submit" />
+                </form>
+                : null
+
+        }
         </li>
         </div>
     

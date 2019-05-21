@@ -19,7 +19,6 @@ class DilemmaList extends Component {
     getDilemmas = () => {
         axios.get('/dilemma')
         .then(res => {
-            // console.log(res.data.dilemmas)
             this.setState({ dilemmas: res.data.dilemmas })
         })
     }
@@ -27,7 +26,7 @@ class DilemmaList extends Component {
         let newDilemma = { ...this.state.newDilemma }
         newDilemma[e.target.name] = e.target.value
         console.log(e.target.name)
-        this.setState({ newDilemma: newDilemma })
+        this.setState({ newDilemma })
     }
     toggleCreateForm = () => {
         this.setState((state) => {
@@ -68,8 +67,8 @@ class DilemmaList extends Component {
         })
         return (
             <div>
-                <h1 className="title">DilemmaList Page</h1>
-                <button onClick={this.toggleCreateForm}><h4>Solve New Dilemma</h4></button>
+                <h1 className="title">Questions</h1>
+                <button onClick={this.toggleCreateForm}><h4>New Point of View</h4></button>
                 {
                     this.state.createDilemmaForm
 

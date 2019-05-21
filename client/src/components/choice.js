@@ -1,30 +1,3 @@
-// import { Link } from "react-router-dom"
-import React, { Component } from 'react'
-
-//styled components or bootstrap or materialize
-class Choice extends Component {
-  
-render(){
-
-    return (
-        <div>
-         <li>
-        {this.props.name} 
-        <a href="#">view</a>
-        <a href="#">edit</a>
-   
-        <form>
-
-            <input type='submit' value='delete'/>
-        </form>
-        </li>
-        </div>
-    )
-    }
-
-}
-export default Choice;
-// import { Link } from "react-router-dom"
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
@@ -33,9 +6,8 @@ import { Link } from 'react-router-dom'
 //styled components or bootstrap or materialize
 class Dilemma extends Component {
     state = {
-        dilemma: {
-            name: '',
-            notesThoughts: ''
+        choice: {
+            name: ''
         },
         redirectToHome: false,
         isEditFormDisplayed: false
@@ -43,14 +15,14 @@ class Dilemma extends Component {
 
     deleteDilemma = (e) => {
         e.preventDefault();
-        axios.delete(`/dilemma/${this.props.id}`)
+        axios.delete(`/choices/${this.props.id}`)
         .then(() => this.props.getDilemmas())
     }
  
 render(){
-const url = `/dilemma/${this.props.id}`
+const url = `/choices/${this.props.id}`
     return (
-       <div className="eachDilemma">
+       <div className="eachChoice">
          <li>
        <h3>{this.props.name} </h3> 
    
