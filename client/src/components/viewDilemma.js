@@ -39,11 +39,21 @@ class SingleDilemma extends Component {
       name: this.state.dilemma.name,
       notesThoughts: this.state.dilemma.notesThoughts
       })
-      console.log("totes biiitch!")
-        // .then(res => {
-        //     this.setState({Dilemma: res.data, isEditFormDisplayed: false})
-        // })
+        .then(() => {
+            this.setState({isEditFormDisplayed: false})
+        })
   }
+
+  deleteDilemma = (e) => {
+    e.preventDefault();
+    axios.delete(`/dilemma/${this.props.match.params.dilemmaId}`)
+    .then(() => {
+
+        this.setState((state, props) => {
+            return {redirectToHome: !state.redirectToHome}
+        })
+    })
+}
 
   render() {
     if(this.state.redirectToHome) {
@@ -88,7 +98,7 @@ class SingleDilemma extends Component {
                     <div>
                         notesThoughts: {this.state.dilemma.notesThoughts}
                     </div>
-                    <button onClick={this.props.deleteDilemma}>Delete</button>
+                    <button onClick={this.deleteDilemma}>Delete</button>
                 </div>
         }
       </div>

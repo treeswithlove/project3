@@ -20,16 +20,7 @@ class Dilemma extends Component {
         axios.delete(`/dilemma/${this.props.id}`)
         .then(() => this.props.getDilemmas())
     }
-    updateCreature = (e) => {
-        e.preventDefault()
-        axios.put(`/dilemma/${this.props.id}`, {
-              name: this.state.dilemma.name,
-              notesThoughts: this.state.dilemma.notesThoughts
-          })
-          .then(res => {
-              this.setState({dilemma: res.data, isEditFormDisplayed: false})
-          })
-    }
+ 
 render(){
 const url = `/dilemma/${this.props.id}`
     return (
