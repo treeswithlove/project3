@@ -2,19 +2,18 @@ import React, { Component } from "react";
 import { Redirect, Link } from 'react-router-dom';
 import axios from "axios";
 
-class SingleDilemma extends Component {
+class SingleChoice extends Component {
   state = {
-      dilemma: {
-          name: '',
-          notesThoughts: ''
+      choice: {
+          name: ''
       },
       redirectToHome: false,
       isEditFormDisplayed: false
   }
 
   componentDidMount = () => {
-      axios.get(`/dilemma/${this.props.match.params.dilemmaId}`).then(res => {
-          this.setState({dilemma: res.data.dilemma})
+      axios.get(`/choices/${this.props.match.params.choicesId}`).then(res => {
+        this.setState({choice: res.data.choice})
       })
   }
 
@@ -25,28 +24,26 @@ class SingleDilemma extends Component {
   }
 
   handleChange = (e) => {
-      const cloneDilemma = {...this.state.dilemma}
-      cloneDilemma[e.target.name] = e.target.value
+      const cloneChoice = {...this.state.choice}
+      cloneChoice[e.target.name] = e.target.value
       console.log(e.target.name)
-      this.setState({dilemma: cloneDilemma})
+      this.setState({choice: cloneChoice})
   }
 
-  updateDilemma = (e) => {
+  updateChoice = (e) => {
       e.preventDefault()
-      console.log(this.state.dilemma)
-      axios.put(`/dilemma/${this.props.match.params.dilemmaId}`, {
-    //   this.state.dilemma 
-      name: this.state.dilemma.name,
-      notesThoughts: this.state.dilemma.notesThoughts
+      console.log(this.state.choice)
+      axios.put(`/choices/${this.props.match.params.choicesId}`, {
+      name: this.state.choice.name
       })
         .then(() => {
             this.setState({isEditFormDisplayed: false})
         })
   }
 
-  deleteDilemma = (e) => {
+  deleteChoice = (e) => {
     e.preventDefault();
-    axios.delete(`/dilemma/${this.props.match.params.dilemmaId}`)
+    axios.delete(`/choices/${this.props.match.params.choicesId}`)
     .then(() => {
 
         this.setState((state, props) => {
@@ -57,17 +54,16 @@ class SingleDilemma extends Component {
 
   render() {
     if(this.state.redirectToHome) {
-        return (<Redirect to="/" />)
+        return (<Redirect to="/choices" />)
     }
 
     return (
       <div>
-        <Link to="/">Back to Dilemmas Home</Link>
-        <h1>Single Dilemma</h1>
+        <h1>Perspective</h1>
         <button onClick={this.toggleEditForm}>Edit</button>
         {
             this.state.isEditFormDisplayed
-                ? <form onSubmit={this.updateDilemma}>
+                ? <form onSubmit={this.updateChoice}>
                     <div>
                         <label htmlFor="name">Name</label>
                         <input
@@ -75,35 +71,27 @@ class SingleDilemma extends Component {
                             type="text"
                             name="name"
                             onChange={this.handleChange}
-                            placeholder={this.state.dilemma.name}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="notesThoughts">notesThoughts</label>
-                        <textarea
-                            id="notesThoughts"
-                            name="notesThoughts"
-                            onChange={this.handleChange}
-                            placeholder={this.state.dilemma.notesThoughts}
+                            value={this.state.choice.name}
                         />
                     </div>
                     <input type="submit" value="submit" />
+                    <button onClick={this.deleteChoice}>Delete</button>
+
                 </form>
                 : <div>
                     <div>
-                        Name: {this.state.dilemma.name}
+                        Name: {this.state.choice.name}
 
                         
                     </div>
-                    <div>
-                        notesThoughts: {this.state.dilemma.notesThoughts}
-                    </div>
-                    <button onClick={this.deleteDilemma}>Delete</button>
+                
                 </div>
-        }
+        }        
+        <Link to="/choices">Back to Choices Home</Link>
+
       </div>
     );
   }
 }
 
-export default SingleDilemma;
+export default SingleChoice;

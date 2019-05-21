@@ -7,208 +7,82 @@ class ChoiceList extends Component {
     state = {
         choices: [],
         createChoiceForm: true,
-        newDelimma: {
-            name: "",
-            notesThoughts: ""
+        newChoice: {
+            name: ""
         }
     }
 
     componentDidMount = () => {
-        axios.get('/choice')
+        this.getChoices();
+    }
+    getChoices = () => {
+        axios.get('/choices')
             .then(res => {
-                // console.log(res.data.choices)
                 this.setState({ choices: res.data.choices })
             })
-        // .then(()=>{})
     }
     handleChange = (e) => {
         let newChoice = { ...this.state.newChoice }
         newChoice[e.target.name] = e.target.value
         console.log(e.target.name)
-        this.setState({ newDelimma: newChoice })
-    }
-
-    createDilemma = (e) => {
-        e.preventDefault()
-        console.log(this.state.newDelimma)
-        // console.log( this.state.newDelimma.notesThoughts)
-        axios.post('/dilemma', this.state.newDelimma)
-
-
-            //name: this.state.newDelimma.name,
-            // notesThoughts: this.state.newDelimma.notesThoughts
-
-            .then(res => {
-                console.log(res.data)
-                // const delimmasList = [...this.state.delimmas]
-                // delimmasList.unshift(res.data)
-                // this.setState({
-                //     newDelimma: {
-                //         name: '',
-                //         notesThoughts: ''
-                //     },
-                //     isDelimmaFormDisplayed: false,
-                //     delimmas: delimmasList
-                // })
-            })
-
-    }
-    render() {
-        const dilemmas = this.state.dilemmas
-        const dilemmaComponent = dilemmas.map((dilemma, index) => {
-            return (<Dilemma
-                key={index}
-                index={index}
-                id={dilemma._id}
-                name={dilemma.name}
-                notesThoughts={dilemma.notesThoughts}
-
-            />
-            )
-        })
-        return (
-            <div>
-                <h1 className="title">DilemmaList Page</h1>
-                {
-                    this.state.createDilemmaForm
-
-                        ? <form onSubmit={this.createDilemma}>
-                       
-                            <div>
-                                <label>name</label>
-                                <input
-                                    className='dilemmaCreateName'
-                                    type='text'
-                                    id='name'
-                                    name='name'
-                                    onChange={this.handleChange}
-                                    value={this.state.newDelimma.name} />
-
-                                <label>Thoughts</label>
-                                <textarea
-                                    className='dilemmaCreateThoughts'
-                                    id='notesThoughts'
-                                    name='notesThoughts'
-                                    onChange={this.handleChange}
-                                    value={this.state.newDelimma.notesThoughts} />
-                            
-                        
-                                <input type='submit' value='submit' />
-                            </div>
-                        </form>
-
-                        : null
-                }
-                <ol>
-                    {dilemmaComponent}
-
-
-                </ol>
-
-            </div>
-        )
-    }
-
-}
-export default DilemmaList;
-// import { Link } from "react-router-dom"
-import React, { Component } from 'react'
-import Dilemma from './dilemma'
-import axios from 'axios'
-
-class DilemmaList extends Component {
-    state = {
-        dilemmas: [],
-        createDilemmaForm: true,
-        newDilemma: {
-            name: "",
-            notesThoughts: ""
-        }
-    }
-    
-    componentDidMount = () => {
-        this.getDilemmas();
-    }
-    getDilemmas = () => {
-        axios.get('/dilemma')
-        .then(res => {
-            // console.log(res.data.dilemmas)
-            this.setState({ dilemmas: res.data.dilemmas })
-        })
-    }
-    handleChange = (e) => {
-        let newDilemma = { ...this.state.newDilemma }
-        newDilemma[e.target.name] = e.target.value
-        console.log(e.target.name)
-        this.setState({ newDilemma: newDilemma })
+        this.setState({ newChoice })
     }
     toggleCreateForm = () => {
         this.setState((state) => {
-        return {createDilemmaForm: ! state.createDilemmaForm}
-    })
+            return { createchoiceForm: !state.createchoiceForm }
+        })
     }
-    createDilemma = (e) => {
+    createChoice = (e) => {
         e.preventDefault()
-        axios.post('/dilemma', this.state.newDilemma)
+        axios.post('/choices', this.state.newChoice)
             .then(res => {
                 console.log(res.data)
-                const dilemmasList = [...this.state.dilemmas]
-                dilemmasList.unshift(res.data)
+                const choicesList = [...this.state.choices]
+                choicesList.unshift(res.data)
                 this.setState({
-                    newDilemma: {
-                        name: '',
-                        notesThoughts: ''
+                    newChoice: {
+                        name: ''
                     },
-                    createDilemmaForm: false,
-                    dilemmas: dilemmasList
+                    createChoiceForm: false,
+                    choices: choicesList
                 })
             })
     }
 
     render() {
-        const dilemmas = this.state.dilemmas
-        const dilemmaComponent = dilemmas.map((dilemma, index) => {
-            return (<Dilemma
+        const choices = this.state.choices
+        const choiceComponent = choices.map((choices, index) => {
+            return (<Choice
                 key={index}
                 index={index}
-                id={dilemma._id}
-                name={dilemma.name}
-                notesThoughts={dilemma.notesThoughts}
-                getDilemmas={this.getDilemmas}
+                id={choices._id}
+                name={choices.name}
+                getChoices={this.getChoices}
             />
 
             )
         })
         return (
             <div>
-                <h1 className="title">DilemmaList Page</h1>
-                <button onClick={this.toggleCreateForm}><h4>Solve New Dilemma</h4></button>
+                <h1 className="title">Different Perspectives</h1>
+                <button onClick={this.toggleCreateForm}><h4>New Perspective</h4></button>
                 {
-                    this.state.createDilemmaForm
+                    this.state.createchoiceForm
 
-                        ? <form onSubmit={this.createDilemma}>
-                       
+                        ? <form onSubmit={this.createChoice}>
+
                             <div>
-                                <label>name</label>
+                                <label>Name</label>
                                 <input
-                                    className='dilemmaCreateName'
+                                    className='choiceCreateName'
                                     type='text'
                                     id='name'
                                     name='name'
                                     onChange={this.handleChange}
-                                    value={this.state.newDilemma.name} />
-</div>
-<div>
-                                <label>Thoughts</label>
-                                <textarea
-                                    className='dilemmaCreateThoughts'
-                                    id='notesThoughts'
-                                    name='notesThoughts'
-                                    onChange={this.handleChange}
-                                    value={this.state.newDilemma.notesThoughts} />
-                            
+                                    value={this.state.newChoice.name} />
                             </div>
-<div>
+
+                            <div>
                                 <input type='submit' value='submit' />
                             </div>
                         </form>
@@ -216,7 +90,7 @@ class DilemmaList extends Component {
                         : null
                 }
                 <ul className="ulDilemmas">
-                    {dilemmaComponent}
+                    {choiceComponent}
 
 
                 </ul>
@@ -226,4 +100,4 @@ class DilemmaList extends Component {
     }
 
 }
-export default DilemmaList;
+export default ChoiceList;

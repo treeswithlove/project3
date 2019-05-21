@@ -17,6 +17,21 @@
   width:18%
 }
 
+nav > ul {
+ padding-top: 2%;
+ list-style:none;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-evenly;
+}
+div> nav {
+  height: 10vh;
+  background:  darkcyan;
+}
+/* nav > ul >li {
+  display: flex;
+  align-items: space-between;
+} */
 
 /* .App-logo {
   animation: App-logo-spin infinite 20s linear;

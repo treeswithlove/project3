@@ -35,7 +35,6 @@ class SingleDilemma extends Component {
       e.preventDefault()
       console.log(this.state.dilemma)
       axios.put(`/dilemma/${this.props.match.params.dilemmaId}`, {
-    //   this.state.dilemma 
       name: this.state.dilemma.name,
       notesThoughts: this.state.dilemma.notesThoughts
       })
@@ -57,12 +56,11 @@ class SingleDilemma extends Component {
 
   render() {
     if(this.state.redirectToHome) {
-        return (<Redirect to="/" />)
+        return (<Redirect to="/dilemma" />)
     }
 
     return (
       <div>
-        <Link to="/">Back to Dilemmas Home</Link>
         <h1>Single Dilemma</h1>
         <button onClick={this.toggleEditForm}>Edit</button>
         {
@@ -75,7 +73,7 @@ class SingleDilemma extends Component {
                             type="text"
                             name="name"
                             onChange={this.handleChange}
-                            placeholder={this.state.dilemma.name}
+                            value={this.state.dilemma.name}
                         />
                     </div>
                     <div>
@@ -84,10 +82,12 @@ class SingleDilemma extends Component {
                             id="notesThoughts"
                             name="notesThoughts"
                             onChange={this.handleChange}
-                            placeholder={this.state.dilemma.notesThoughts}
+                            value={this.state.dilemma.notesThoughts}
                         />
                     </div>
                     <input type="submit" value="submit" />
+                    <button onClick={this.deleteDilemma}>Delete</button>
+
                 </form>
                 : <div>
                     <div>
@@ -98,9 +98,9 @@ class SingleDilemma extends Component {
                     <div>
                         notesThoughts: {this.state.dilemma.notesThoughts}
                     </div>
-                    <button onClick={this.deleteDilemma}>Delete</button>
                 </div>
         }
+         <Link to="/dilemma">Back to Life Questions Home</Link>
       </div>
     );
   }

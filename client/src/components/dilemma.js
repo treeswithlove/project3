@@ -1,7 +1,6 @@
-// import { Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 
 //styled components or bootstrap or materialize
@@ -39,29 +38,24 @@ class Dilemma extends Component {
         e.preventDefault()
         console.log(this.state.dilemma)
         axios.put(`/dilemma/${this.props.id}`, {
-      //   this.state.dilemma 
         name: this.state.dilemma.name,
         notesThoughts: this.state.dilemma.notesThoughts
         })
           .then(() => {
               this.setState({isEditFormDisplayed: false})
-          })
+          }).then(() => this.props.getDilemmas())
     }
  
 render(){
 const url = `/dilemma/${this.props.id}`
     return (
        <div className="eachDilemma">
-         <li>
-       <h3>{this.props.name} </h3> 
+         <li><Link to={url}>
+       <h3>{this.props.name} </h3> </Link>
        <h4>{this.props.notesThoughts} </h4> 
-   
-        <form>
-        <Link to={url}>view</Link>
-            
-        </form>
-        <input onClick={this.deleteDilemma} type='submit' value='delete'/>
         <button onClick={this.toggleEditForm}>Edit</button>
+
+        
         {
             this.state.isEditFormDisplayed
                 ? <form onSubmit={this.updateDilemma}>
@@ -72,7 +66,7 @@ const url = `/dilemma/${this.props.id}`
                             type="text"
                             name="name"
                             onChange={this.handleChange}
-                            placeholder={this.state.dilemma.name}
+                            value={this.state.dilemma.name}
                         />
                     </div>
                     <div>
@@ -81,10 +75,12 @@ const url = `/dilemma/${this.props.id}`
                             id="notesThoughts"
                             name="notesThoughts"
                             onChange={this.handleChange}
-                            placeholder={this.state.dilemma.notesThoughts}
+                            value={this.state.dilemma.notesThoughts}
                         />
                     </div>
                     <input type="submit" value="submit" />
+                    <input onClick={this.deleteDilemma} type='submit' value='delete'/>
+
                 </form>
                 : null
 

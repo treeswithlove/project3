@@ -24,7 +24,7 @@ const ChoiceController = {
     },
     // creates a new choice
     create: function(req,res) {
-        newchoice = (req.body)
+        newChoice = (req.body)
         ChoiceModel.create(newChoice).then((newChoice) => res.send(newChoice))
     },
     //updates and returns to index.hbs

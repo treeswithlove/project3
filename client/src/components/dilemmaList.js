@@ -67,8 +67,8 @@ class DilemmaList extends Component {
         })
         return (
             <div>
-                <h1 className="title">Questions</h1>
-                <button onClick={this.toggleCreateForm}><h4>New Point of View</h4></button>
+                <h1 className="title">Life Questions</h1>
+                <button onClick={this.toggleCreateForm}><h4>New Question</h4></button>
                 {
                     this.state.createDilemmaForm
 
@@ -82,7 +82,7 @@ class DilemmaList extends Component {
                                     id='name'
                                     name='name'
                                     onChange={this.handleChange}
-                                    value={this.state.newDilemma.name} />
+                                    value={this.state.name} />
 </div>
 <div>
                                 <label>Thoughts</label>
