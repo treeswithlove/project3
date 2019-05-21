@@ -1,54 +1,47 @@
 // import { Link } from "react-router-dom"
 import React, { Component } from 'react'
-import Choice from './choice'
+import Dilemma from './dilemma'
 import axios from 'axios'
 
-class ChoiceList extends Component {
+class DilemmaList extends Component {
     state = {
-        choices: [],
-        createChoiceForm: true,
-        newDelimma: {
+        dilemmas: [],
+        createDilemmaForm: true,
+        newDilemma: {
             name: "",
             notesThoughts: ""
         }
     }
 
     componentDidMount = () => {
-        axios.get('/choice')
+        axios.get('/dilemma')
             .then(res => {
-                // console.log(res.data.choices)
-                this.setState({ choices: res.data.choices })
+                // console.log(res.data.dilemmas)
+                this.setState({ dilemmas: res.data.dilemmas })
             })
         // .then(()=>{})
     }
     handleChange = (e) => {
-        let newChoice = { ...this.state.newChoice }
-        newChoice[e.target.name] = e.target.value
+        let newDilemma = { ...this.state.newDilemma }
+        newDilemma[e.target.name] = e.target.value
         console.log(e.target.name)
-        this.setState({ newDelimma: newChoice })
+        this.setState({ newDilemma: newDilemma })
     }
 
     createDilemma = (e) => {
         e.preventDefault()
-        console.log(this.state.newDelimma)
-        // console.log( this.state.newDelimma.notesThoughts)
-        axios.post('/dilemma', this.state.newDelimma)
-
-
-            //name: this.state.newDelimma.name,
-            // notesThoughts: this.state.newDelimma.notesThoughts
-
+        axios.post('/dilemma', this.state.newDilemma)
             .then(res => {
                 console.log(res.data)
-                // const delimmasList = [...this.state.delimmas]
-                // delimmasList.unshift(res.data)
+                // const DilemmasList = [...this.state.dilemmas]
+                // dilemmasList.unshift(res.data)
                 // this.setState({
-                //     newDelimma: {
+                //     newDilemma: {
                 //         name: '',
                 //         notesThoughts: ''
                 //     },
-                //     isDelimmaFormDisplayed: false,
-                //     delimmas: delimmasList
+                //     isDilemmaFormDisplayed: false,
+                //     dilemmas: dilemmasList
                 // })
             })
 
@@ -82,17 +75,19 @@ class ChoiceList extends Component {
                                     id='name'
                                     name='name'
                                     onChange={this.handleChange}
-                                    value={this.state.newDelimma.name} />
-
+                                    value={this.state.newDilemma.name} />
+</div>
+<div>
                                 <label>Thoughts</label>
                                 <textarea
                                     className='dilemmaCreateThoughts'
                                     id='notesThoughts'
                                     name='notesThoughts'
                                     onChange={this.handleChange}
-                                    value={this.state.newDelimma.notesThoughts} />
+                                    value={this.state.newDilemma.notesThoughts} />
                             
-                        
+                            </div>
+<div>
                                 <input type='submit' value='submit' />
                             </div>
                         </form>

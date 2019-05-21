@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 //styled components or bootstrap or materialize
-class Choice extends Component {
+class Dilemma extends Component {
   
 render(){
 
@@ -23,4 +23,4 @@ render(){
     }
 
 }
-export default Choice;
+export default Dilemma;
