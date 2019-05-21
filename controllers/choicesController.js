@@ -1,67 +1,46 @@
-const Dilemma = require("../models/dilemmaModel.js");
-const Choices = require("../models/choicesModel.js");
+// choice model
+const ChoiceModel = require('../models/choicesModel.js')
 
 
-const choicesController = {
-    index: function (req, res) {
-        Dilemma.findById(req.params.dilemmaId)
-            .then(dilemma => {
-                Choices.find({ dilemmaId: req.params.choicesId })
-                    .then(choices => {
-                        res.send({ dilemma: dilemma, choices: choices });
-                    });
-            });
-    },
-    new: function (req, res) {
-        Dilemma.findById(req.params.dilemmaId)
-            .then(dilemma => {
-                res.send({ dilemma: dilemma });
-            })
-    },
-    create: function (req, res) {
-        Choices.create({
-            name: req.body.name,
-            dilemmaId: req.params.dilemmaId
+//choice controller
+
+const ChoiceController = {
+    //finds all choices
+    index: function(req, res){
+        ChoiceModel.find().then(choices => {
+            res.send({choices})
         })
-            .then((choices) => {
-                res.redirect(choices);
-            });
     },
-    show: function (req, res) {
-        Dilemma.findById(req.params.dilemmaId)
-            .then(dilemma => {
-                Choices.findById(req.params.choicesId)
-                    .then(choices => {
-                        res.send({ dilemma: dilemma, choices: choices });
-                    });
-            });
+//come back to this
+    // user will be directed to create a choice form
+    new: function(req, res){
+        res.send()
     },
-    edit: function (req, res) {
-        Dilemma.findById(req.params.dilemmaId)
-            .then(dilemma => {
-                Choices.findById(req.params.choicesId)
-                    .then(choices => {
-                        res.send({ dilemma: dilemma, choices: choices });
-                    });
-            });
+    // shows one choice
+    show: function(req,res){
+        ChoiceModel.findById(req.params.choicesId).then(choice => {
+            res.send({choice})
+        })
     },
-    update: function (req, res) {
-        Choices.findByIdAndUpdate(req.params.choicesId, req.body, { new: true })
-            .then(() => {
-                res.redirect("/dilemma/" + req.params.dilemmaId + "/choices/" + req.params.choicesId);
-            });
-        
+    // creates a new choice
+    create: function(req,res) {
+        newchoice = (req.body)
+        ChoiceModel.create(newChoice).then((newChoice) => res.send(newChoice))
     },
-    delete: function (req, res) {
-        Choices.findByIdAndRemove(req.params.choicesId)
-            .then(() => {
-                res.redirect("/dilemma/" + req.params.dilemmaId + "/choices/");
-            });
+    //updates and returns to index.hbs
+    update: function(req,res){
+        ChoiceModel.findByIdAndUpdate(req.params.choicesId, req.body).then(() => {
+            res.send("/choices")
+        })
+    },
+    //deletes and returns to index.hbs
+    delete: function(req,res){
+        ChoiceModel.findByIdAndRemove(req.params.choicesId).then(() => {
+            res.send("/choices")
+            })
+        }
     }
-}
 
-//= =====================
-// EXPORTS
-//= =====================
-// export the controller with module.exports
-module.exports = choicesController;
+module.exports = ChoiceController
+
+

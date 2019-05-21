@@ -13,7 +13,7 @@ app.use(express.json());
 
 //model routes
 app.use('/dilemma', routesDilemma)
-app.use('/dilemma/:dilemmaId/choices', routesChoices)
+app.use('/choices', routesChoices)
 
 app.use(express.static(`${__dirname}/client/build`))
 app.get('/*', (req, res) => {
