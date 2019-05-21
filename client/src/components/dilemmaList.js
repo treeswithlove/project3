@@ -27,22 +27,26 @@ class DilemmaList extends Component {
         console.log(e.target.name)
         this.setState({ newDilemma: newDilemma })
     }
-
+    toggleCreateForm = () => {
+        this.setState((state) => {
+        return {createDilemmaForm: ! state.createDilemmaForm}
+    })
+    }
     createDilemma = (e) => {
         e.preventDefault()
         axios.post('/dilemma', this.state.newDilemma)
             .then(res => {
                 console.log(res.data)
-                // const DilemmasList = [...this.state.dilemmas]
-                // dilemmasList.unshift(res.data)
-                // this.setState({
-                //     newDilemma: {
-                //         name: '',
-                //         notesThoughts: ''
-                //     },
-                //     isDilemmaFormDisplayed: false,
-                //     dilemmas: dilemmasList
-                // })
+                const dilemmasList = [...this.state.dilemmas]
+                dilemmasList.unshift(res.data)
+                this.setState({
+                    newDilemma: {
+                        name: '',
+                        notesThoughts: ''
+                    },
+                    createDilemmaForm: false,
+                    dilemmas: dilemmasList
+                })
             })
 
     }
@@ -62,6 +66,7 @@ class DilemmaList extends Component {
         return (
             <div>
                 <h1 className="title">DilemmaList Page</h1>
+                <button onClick={this.toggleCreateForm}><h3>Solve New Dilemma</h3></button>
                 {
                     this.state.createDilemmaForm
 
