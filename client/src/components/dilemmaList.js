@@ -12,14 +12,16 @@ class DilemmaList extends Component {
             notesThoughts: ""
         }
     }
-
+    
     componentDidMount = () => {
+        this.getDilemmas();
+    }
+    getDilemmas = () => {
         axios.get('/dilemma')
-            .then(res => {
-                // console.log(res.data.dilemmas)
-                this.setState({ dilemmas: res.data.dilemmas })
-            })
-        // .then(()=>{})
+        .then(res => {
+            // console.log(res.data.dilemmas)
+            this.setState({ dilemmas: res.data.dilemmas })
+        })
     }
     handleChange = (e) => {
         let newDilemma = { ...this.state.newDilemma }
@@ -48,8 +50,8 @@ class DilemmaList extends Component {
                     dilemmas: dilemmasList
                 })
             })
-
     }
+
     render() {
         const dilemmas = this.state.dilemmas
         const dilemmaComponent = dilemmas.map((dilemma, index) => {
@@ -59,14 +61,15 @@ class DilemmaList extends Component {
                 id={dilemma._id}
                 name={dilemma.name}
                 notesThoughts={dilemma.notesThoughts}
-
+                getDilemmas={this.getDilemmas}
             />
+
             )
         })
         return (
             <div>
                 <h1 className="title">DilemmaList Page</h1>
-                <button onClick={this.toggleCreateForm}><h3>Solve New Dilemma</h3></button>
+                <button onClick={this.toggleCreateForm}><h4>Solve New Dilemma</h4></button>
                 {
                     this.state.createDilemmaForm
 
@@ -99,11 +102,11 @@ class DilemmaList extends Component {
 
                         : null
                 }
-                <ol>
+                <ul className="ulDilemmas">
                     {dilemmaComponent}
 
 
-                </ol>
+                </ul>
 
             </div>
         )
