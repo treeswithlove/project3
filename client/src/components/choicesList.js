@@ -6,7 +6,7 @@ import axios from 'axios'
 class ChoiceList extends Component {
     state = {
         choices: [],
-        createChoiceForm: true,
+        createChoiceForm: false,
         newChoice: {
             name: "",
             oldPerspective: ""

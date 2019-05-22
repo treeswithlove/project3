@@ -6,7 +6,7 @@ import axios from 'axios'
 class DilemmaList extends Component {
     state = {
         dilemmas: [],
-        createDilemmaForm: true,
+        createDilemmaForm: false,
         newDilemma: {
             name: "",
             notesThoughts: ""
