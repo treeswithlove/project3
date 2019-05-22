@@ -13,27 +13,32 @@ class Dilemma extends Component {
         redirectToHome: false,
         isEditFormDisplayed: false
     }
+    //gets the dilemma
     componentDidMount = () => {
         axios.get(`/dilemma/${this.props.id}`).then(res => {
             this.setState({dilemma: res.data.dilemma})
         })
     }
+    // toggles form
     toggleEditForm = () => {
         this.setState((state, props) => {
             return {isEditFormDisplayed: !state.isEditFormDisplayed}
         })
     }
+    //creates clone as placeholder
     handleChange = (e) => {
-        const cloneDilemma = {...this.state.dilemma}
-        cloneDilemma[e.target.name] = e.target.value
+        const newDilemma = {...this.state.dilemma}
+        newDilemma[e.target.name] = e.target.value
         console.log(e.target.name)
-        this.setState({dilemma: cloneDilemma})
+        this.setState({dilemma: newDilemma})
     }
+    //deletes Dilemma
     deleteDilemma = (e) => {
         e.preventDefault();
         axios.delete(`/dilemma/${this.props.id}`)
         .then(() => this.props.getDilemmas())
     }
+    //updates dilemma
     updateDilemma = (e) => {
         e.preventDefault()
         console.log(this.state.dilemma)
@@ -49,6 +54,7 @@ class Dilemma extends Component {
 render(){
 const url = `/dilemma/${this.props.id}`
     return (
+        //when map, maps through data this will be seen for each
        <div className="eachDilemma">
          <li><Link to={url}>
        <h3>{this.props.name} </h3> </Link>

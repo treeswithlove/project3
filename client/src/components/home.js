@@ -5,6 +5,7 @@ class Home extends Component {
         return(
 <div>
     <h1>Welcome to Reflections!</h1>
+    <div className="homeContainer">
     <main>
         <article>
     <h2>Life Questions</h2>
@@ -22,6 +23,15 @@ class Home extends Component {
         it in the "Perspectives" and "Old Perspectives" fields.
 
     </p></article></main>
+    <aside>
+    <h3>Food For Thought</h3>
+    <p>Through the power of your own thoughts you can create the life you want.
+        Your thoughts are powerful beyond measure. Reflect with us so that 
+        others may bask in your glory.
+
+    </p>
+    </aside>
+    </div>
 </div>
         )
     }
