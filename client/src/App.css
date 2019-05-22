@@ -2,20 +2,20 @@
   text-align: center;
 }
 
-.eachDilemma{
+.eachDilemma, .eachChoice{
   border: solid black;
+  width:22%;
+  margin: 1%;
 }
 
-.ulDilemmas {
+.ulDilemmas, .ulChoices {
   list-style: none;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100vw;
 }
-.eachDilemma {
-  width:18%
-}
+
 
 nav > ul {
  padding-top: 2%;

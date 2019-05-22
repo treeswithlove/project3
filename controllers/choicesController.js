@@ -11,7 +11,7 @@ const ChoiceController = {
             res.send({choices})
         })
     },
-//come back to this
+
     // user will be directed to create a choice form
     new: function(req, res){
         res.send()

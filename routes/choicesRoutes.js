@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-//imports greenWays controllers
+//imports choices controllers
 const choicesController = require('../controllers/choicesController.js')
 
-//greenWays controller Routes
+//choices controller Routes
 router.get('/', choicesController.index)
 router.post('/', choicesController.create)
 router.get('/new', choicesController.new)

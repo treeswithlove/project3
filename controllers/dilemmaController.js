@@ -11,7 +11,7 @@ const DilemmaController = {
             res.send({dilemmas})
         })
     },
-//come back to this
+    
     // user will be directed to create a dilemma form
     new: function(req, res){
         res.send()
@@ -27,13 +27,13 @@ const DilemmaController = {
         newDilemma = (req.body)
         DilemmaModel.create(newDilemma).then((newDelimma) => res.send(newDelimma))
     },
-    //updates and returns to index.hbs
+    //updates
     update: function(req,res){
         DilemmaModel.findByIdAndUpdate(req.params.dilemmaId, req.body).then(() => {
             res.send("/dilemma")
         })
     },
-    //deletes and returns to index.hbs
+    //deletes
     delete: function(req,res){
         DilemmaModel.findByIdAndRemove(req.params.dilemmaId).then(() => {
             res.send("/dilemma")
