@@ -1,7 +1,16 @@
 .App {
   text-align: center;
 }
+input{
+  width:20vw;
+  height: 5vh;
+  text-overflow: wrap;
 
+}
+textarea {
+  width: 20vw;
+  height: 10vh;
+}
 .eachDilemma, .eachChoice{
   border: solid black;
   width:22%;
@@ -16,7 +25,6 @@
   width: 100vw;
 }
 
-
 nav > ul {
  padding-top: 2%;
  list-style:none;
@@ -24,6 +32,7 @@ nav > ul {
  flex-direction: row;
  justify-content: space-evenly;
 }
+
 div> nav {
   height: 10vh;
   background:  darkcyan;
