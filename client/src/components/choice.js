@@ -7,7 +7,8 @@ import axios from 'axios'
 class Choice extends Component {
     state = {
         choice: {
-            name: ''
+            name: '',
+            oldPerspective: ''
         },
         redirectToHome: false,
         isEditFormDisplayed: false
@@ -37,7 +38,8 @@ class Choice extends Component {
         e.preventDefault()
         console.log(this.state.choice)
         axios.put(`/choices/${this.props.id}`, {
-        name: this.state.choice.name
+        name: this.state.choice.name,
+        oldPerspective: this.state.choice.oldPerspective
         })
           .then(() => {
               this.setState({isEditFormDisplayed: false})
@@ -49,7 +51,11 @@ const url = `/choices/${this.props.id}`
     return (
        <div className="eachChoice">
          <li>
-         <Link to={url}><h3>{this.props.name} </h3> </Link>
+         <Link to={url}>
+         <h3>{this.props.name} </h3> </Link></li>
+         <li><h3>{this.state.choice.oldPerspective}</h3></li>
+         <li>
+    
         
         <button onClick={this.toggleEditForm}>Edit</button>
 
@@ -58,13 +64,22 @@ const url = `/choices/${this.props.id}`
             this.state.isEditFormDisplayed
                 ? <form onSubmit={this.updateChoice}>
                     <div>
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Perspective</label>
                         <input
                             id="name"
                             type="text"
                             name="name"
                             onChange={this.handleChange}
                             value={this.state.choice.name}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="oldPerspective">Old Perspective</label>
+                        <textarea
+                            id="oldPerspective"
+                            name="oldPerspective"
+                            onChange={this.handleChange}
+                            value={this.state.choice.oldPerspective}
                         />
                     </div>
         

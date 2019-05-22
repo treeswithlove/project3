@@ -75,7 +75,7 @@ class DilemmaList extends Component {
                         ? <form onSubmit={this.createDilemma}>
                        
                             <div>
-                                <label>name</label>
+                                <label>Question: </label>
                                 <input
                                     className='dilemmaCreateName'
                                     type='text'
@@ -85,7 +85,7 @@ class DilemmaList extends Component {
                                     value={this.state.name} />
 </div>
 <div>
-                                <label>Thoughts</label>
+                                <label>Context: </label>
                                 <textarea
                                     className='dilemmaCreateThoughts'
                                     id='notesThoughts'

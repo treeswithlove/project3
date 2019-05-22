@@ -70,7 +70,7 @@ const url = `/dilemma/${this.props.id}`
                         />
                     </div>
                     <div>
-                        <label htmlFor="notesThoughts">notesThoughts</label>
+                        <label htmlFor="notesThoughts">Old Thoughts</label>
                         <textarea
                             id="notesThoughts"
                             name="notesThoughts"

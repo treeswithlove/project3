@@ -8,7 +8,8 @@ class ChoiceList extends Component {
         choices: [],
         createChoiceForm: true,
         newChoice: {
-            name: ""
+            name: "",
+            oldPerspective: ""
         }
     }
 
@@ -41,7 +42,8 @@ class ChoiceList extends Component {
                 choicesList.unshift(res.data)
                 this.setState({
                     newChoice: {
-                        name: ''
+                        name: '',
+                        oldPerspective: ""
                     },
                     createChoiceForm: false,
                     choices: choicesList
@@ -64,7 +66,7 @@ class ChoiceList extends Component {
         })
         return (
             <div>
-                <h1 className="title">Different Perspectives</h1>
+                <h1 className="title">Change In Perspective</h1>
                 <button onClick={this.toggleCreateForm}><h4>New Perspective</h4></button>
                 {
                     this.state.createchoiceForm
@@ -72,7 +74,7 @@ class ChoiceList extends Component {
                         ? <form onSubmit={this.createChoice}>
 
                             <div>
-                                <label>Name</label>
+                                <label>Perspective</label>
                                 <input
                                     className='choiceCreateName'
                                     type='text'
@@ -80,6 +82,15 @@ class ChoiceList extends Component {
                                     name='name'
                                     onChange={this.handleChange}
                                     value={this.state.newChoice.name} />
+                            </div>
+                            <div>
+                                <label htmlFor="oldPerspective">Old Perspective</label>
+                                <textarea
+                                    id="oldPerspective"
+                                    name="oldPerspective"
+                                    onChange={this.handleChange}
+                                    value={this.state.newChoice.oldPerspective}
+                                />
                             </div>
 
                             <div>
